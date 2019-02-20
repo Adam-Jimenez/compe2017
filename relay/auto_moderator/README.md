@@ -11,3 +11,4 @@ Notre programme prend un fichier csv en parametre décrivant un message et déte
 # Fonctionnalités accomplies
 - Lecture du csv
 - Lecture du dictionaire
+- Regle un: Ideji + "b" = negative

@@ -1,4 +1,5 @@
 import sys
+import re
 
 """
     Reads csv from path
@@ -11,7 +12,7 @@ def read_csv(csv_path):
     lines = [line.rstrip('\n') for line in open(csv_path)]
     csv_content = []
     for line in lines:
-        csv_content.append(line.split(','))
+        csv_content.append(line.lower().split(','))
 
     return csv_content
 
@@ -27,6 +28,7 @@ def read_dict(dict_path):
     dictionary = {}
     for line in lines:
         word, attributes = line.split('\\')
+        word = word.lower()
         if word in dictionary:
             dictionary[word] += attributes
         else:
@@ -51,7 +53,22 @@ SCORE = {
     @returns SCORE[sentiment]
 """
 def score_message(message, dictionary):
+    words = re.sub("[^\w]", " ",  message).split()
+    has_ideji = "ideji" in words
+    # Rule 1
+    if has_ideji:
+        for word in words:
+            if word not in dictionary:
+                continue
+            word_attributes = dictionary[word]
+            if 'b' in word_attributes:
+                return SCORE["NEGATIVE"]
+    # TODO: IMPLEMENT RULES HERE!!!!
+    # Rule 2...
 
+    return SCORE["NEUTRAL"]
+
+SCORE_OUTPUT = {-1: "negative", 0: "neutral", 1:"positive"}
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -63,5 +80,7 @@ if __name__ == "__main__":
     csv_content = read_csv(csv_path)
     dictionary = read_dict(dict_path)
     for content in csv_content:
+        id = content[0]
         message = content[1]
         score = score_message(message, dictionary)
+        print(id+","+SCORE_OUTPUT[score])
