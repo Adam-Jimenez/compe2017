@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#sidebar {
+    display: inline-block;
+    float: left;
+    width: 20%;
+    border: solid 1px black;
+}
+#office {
+    display: inline-block;
+    float: right;
+    width: 80%;
+}
+#sidebar > * {
+    margin: auto;
+    margin-bottom: 10px;
+    display: block;
+    width: 80%;
+    text-align: center;
+}
+
+#bottom {
+    clear:both;
+    padding: 5px;
+    /* border: solid 1px black; */
+    
+}
+
+#bottom > .group_l {
+    float: left;
+}
+
+#bottom > .group_r {
+    float: right;
+}

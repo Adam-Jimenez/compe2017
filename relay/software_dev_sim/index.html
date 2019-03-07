@@ -6,11 +6,37 @@
     <title>DevSim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <script src="main.js"></script>
 </head>
 <body>
-    <button onclick="AddWorker(1200,1,4,1.4)">Add Dev</button>
-    <button onclick="AddWorker(800,0.4,2,0.6)">Add Tester</button>
-    <button onclick="NextWeek()">Prochaine Semaine</button>
+    <div id="sidebar">
+        <span>Hire</span>
+        <button onclick="AddWorker(1200,1,4,1.4, 'programmer')">Programmer</button>
+        <button onclick="AddWorker(800,0.4,2,0.6, 'tester')">Tester</button>
+
+        <span>Action(s)</span>
+        <button>Outsource</button>
+        <button>Early access release</button>
+
+        <button onclick="NextWeek()">Next week</button>
+
+        <button>Scoreboard</button>
+        <button>Detailed Budget</button>
+
+        <button>Quit</button>
+    </div>
+    <div id="office">
+    </div>
+    <div id="bottom">
+        <div class="group_l">
+            <span>Week:</span> <span id="weekNumber">0</span>
+            <span>Progress:</span> <span id="progress">0</span>%
+            <span>Budget balance:</span> <span id="budget"></span>
+        </div>
+
+        <div class="group_r">
+            <span>Score:</span> <span id="score">0</span>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
