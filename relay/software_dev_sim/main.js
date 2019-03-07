@@ -34,10 +34,10 @@ class Game{
 
     GameOver(){
         if(this.ProjectProgress >= 100 && this.Money >= 0 && this.Weeks >= 0){ 
-            //Win
+            //TODO: Win
 
         }else{ 
-            //Lose
+            //TODO: Lose
 
         }
     }
@@ -79,9 +79,10 @@ function NextWeek() {
     }
 }
 
+// TODO: Connect in UI
 function SubContract() {
     if(GameInstance.Money >= 2000){
         GameInstance.Money -= 2000;
-        GameInstance.ProjectProgress += (Rand()%6)+1; //Fix Random
+        GameInstance.ProjectProgress += (Rand()%6)+1; //TODO: Fix Random
     }
 }
