@@ -11,4 +11,11 @@ Notre programme prend un fichier csv en parametre décrivant un message et déte
 # Fonctionnalités accomplies
 - Lecture du csv
 - Lecture du dictionaire
-- Regle un: Ideji + "b" = negative
+- Regle 1: Ideji + "b" = negative
+- Regle 2: Ideji + "g" = positive
+- Regle 3: "your" + "product" or "app" or ... + "b" = positive
+- Regle 4: "your" + "product" or "app" or ... + "g" = negative
+- Regle 5: !Ideji = neutral
+- Regle 6: "c" + "b" = positive
+- Regle 7: "c" + "g" = negative
+
