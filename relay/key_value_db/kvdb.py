@@ -4,7 +4,8 @@ import sys
 import json
 
 '''
-    Il reste à faire les deux updates et le db info.
+    Il reste à faire update-by-field (fix la modif (iter sur les key/value a inserer ou modifier)) 
+    et le db info.
 '''
 
 # load DB from file
@@ -62,10 +63,21 @@ elif command == 'delete-by-field':
     print(keys_to_delete)
 
 elif command == 'update-by-key':
-    pass
+    value = json.loads(content)
+    key = value['key']
+    del value['key']
+    database[key] = value['value']
 
 elif command == 'update-by-field':
-    pass
+    field, value = content.split('=')
+    jsonvalue = json.loads(sys.argv[3])
+    keys_to_delete = []
+    for key in database:
+        element = database[key]
+        if field in element and element[field] == value:
+            for k, val in jsonvalue: #TODO: Fix
+                element[k] = val
+                database[k] = element
 
 elif command == 'db-info':
     pass
