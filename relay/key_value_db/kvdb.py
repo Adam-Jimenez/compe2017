@@ -1,7 +1,9 @@
+#!/bin/python
 import pickle
 import uuid
 import sys
 import json
+import os
 
 '''
     Il reste à faire update-by-field (fix la modif (iter sur les key/value a inserer ou modifier)) 
@@ -11,15 +13,18 @@ import json
 # load DB from file
 with open('database', 'rb') as f:
     database = pickle.load(f)
+    db_size = os.stat('database').st_size
 
 
 # DB commands
 command = sys.argv[1]
-content = sys.argv[2]
+content = ''
+if len(sys.argv) > 2:
+    content = sys.argv[2]
 
 if command == 'insert':
     key = str(uuid.uuid4())
-    database[key] = content
+    database[key] = json.loads(content)
     print({'key': str(key)})
 
 elif command == 'insert-with-key':
@@ -39,7 +44,7 @@ elif command == 'select-by-field':
     selected_elements = []
     for key in database:
         element = database[key]
-        if field in element and element[field] == value:
+        if field in element and element[field].lower() == value.lower():
             selected_elements.append({'key': key, 'value': database[key]})
 
     print(selected_elements)
@@ -75,12 +80,17 @@ elif command == 'update-by-field':
     for key in database:
         element = database[key]
         if field in element and element[field] == value:
-            for k, val in jsonvalue: #TODO: Fix
+            keys_to_delete.append(key)
+            for k, val in jsonvalue.items(): #TODO: Fix
                 element[k] = val
-                database[k] = element
+    print(keys_to_delete)
 
 elif command == 'db-info':
-    pass
+    info = {
+        "values_count": len(database),
+        "size": db_size
+    }
+    print(info)
 
 elif command == 'list': # used only for testing purposes
     print(database)
