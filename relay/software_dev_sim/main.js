@@ -8,6 +8,8 @@ class Game{
         this.Weeks = 52;
         this.isGameOver = false;
         this.ProjectProgress = 0;
+        this.earlyAccess = false;
+        this.earlyAccessWeeks = 0;
 
         //TODO: prendre une ref sur les Labels pour l'affichage des Valeurs
         document.getElementById("office").innerHTML="";
@@ -29,13 +31,17 @@ class Game{
             this.Workers.forEach((worker) => {
                 worker.Tick()
             })
-            
+
             if(this.ProjectProgress >= 100){
                 this.ProjectProgress = 100;
                 this.GameOver();
             }
             this.Weeks-=1;
+            if(this.earlyAccess){
+              this.Money -= this.earlyAccessWeeks * 1000;
+              this.earlyAccessWeeks += 1;
 
+            }
         }
         this.UpdateUI();
     }
@@ -48,12 +54,12 @@ class Game{
     }
 
     GameOver(){
-        if(this.ProjectProgress >= 100 && this.Money >= 0 && this.Weeks >= 0){ 
+        if(this.ProjectProgress >= 100 && this.Money >= 0 && this.Weeks >= 0){
             //TODO: Win
             alert("You win!")
             this.Reset();
 
-        }else{ 
+        }else{
             //TODO: Lose
             alert("You lose!")
             this.Reset();
@@ -115,10 +121,36 @@ function NextWeek() {
     }
 }
 
-// TODO: Connect in UI
 function SubContract() {
     if(GameInstance.Money >= 2000){
         GameInstance.Money -= 2000;
-        GameInstance.ProjectProgress += (Rand()%6)+1; //TODO: Fix Random
+        console.log(GameInstance.ProjectProgress)
+        GameInstance.ProjectProgress +=  Math.floor(Math.random() * Math.floor(5)) + 1//TODO: Fix Random
+        GameInstance.UpdateUI();
+
     }
+}
+
+function EarlyAccess() {
+    if(!GameInstance.earlyAccess){
+      GameInstance.earlyAccess = true;
+      GameInstance.Money += 15000;
+      GameInstance.UpdateUI();
+  }
+}
+
+function DetailedBugdet() {
+  var n_programmers = 0
+  var n_testers = 0;
+  for(var i = 0; i < GameInstance.Workers.length; ++i){
+      if(GameInstance.Workers[i].type == 'programmer'){
+          n_programmers++;
+      }else {
+          n_testers++;
+      }
+  }
+    alert('Balance:' + GameInstance.Money +
+      "\nProgrammer's cost: " + 1200* n_programmers +
+      "\nTester's cost: " + 800 * n_testers
+    )
 }

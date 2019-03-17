@@ -1,0 +1,8 @@
+ajouter programmer
+ajouter testeur
+victoire ou defaite
+next week
+outsource
+early access
+detailed budget
+run.sh
